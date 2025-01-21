@@ -35,20 +35,6 @@ The Allowed Plugins Control plugin allows WordPress administrators to restrict t
    ```
 4. The slugs can be found in the URL of the plugin's WordPress.org page. For example, the slug for Akismet is `akismet`. or you can find the plugin slug in the plugin's main file.
 5. Save the changes
-
-## Code Details
-
-### 1. Define Allowed Plugins
-The `apc_get_allowed_plugins` function specifies which plugins are permitted for installation.
-```php
-function apc_get_allowed_plugins() {
-    return [
-        'akismet', 
-        'classic-editor', 
-    ];
-}
-
-
 ## Disclaimer
 Use this plugin carefully. Misconfiguration can restrict essential plugins from being installed. Ensure the allowed list is updated as required.
 
