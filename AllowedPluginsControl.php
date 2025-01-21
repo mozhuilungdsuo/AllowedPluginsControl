@@ -12,6 +12,7 @@ function apc_get_allowed_plugins() {
         'akismet', 
         'classic-editor',
         'AllowedPluginsControl', 
+        'laravel-dd'
         
     ];
 }
@@ -50,9 +51,12 @@ function apc_disable_install_button($links, $plugin) {
     $allowed_plugins = apc_get_allowed_plugins();
 
     if (!empty($plugin['slug']) && !in_array($plugin['slug'], $allowed_plugins)) {
+        
         $links['install'] = '<span style="color: #a00;">' . __('Not Allowed. Please contact DITC for more information', 'allowed-plugins-control') . '</span>';
-        $links['activate'] = '<span style="color: #a00;">' . __('Not Allowed. Please contact DITC for more information', 'allowed-plugins-control') . '</span>';
+        unset($links['0']);
+        unset($links['1']);
     }
+    
 
     return $links;
 }
