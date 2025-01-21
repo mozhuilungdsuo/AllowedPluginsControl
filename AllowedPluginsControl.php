@@ -1,0 +1,57 @@
+<?php
+/*
+Plugin Name: Allowed Plugins Control
+Description: Restricts plugin installation to a predefined list and hides this plugin from the Plugins page.
+Version: 1.0
+Author: Lungdsuo Mozhui
+*/
+
+
+function apc_get_allowed_plugins() {
+    return [
+        'akismet', 
+        'classic-editor', 
+        
+    ];
+}
+
+
+function apc_restrict_plugin_installation($install_result, $slug) {
+    $allowed_plugins = apc_get_allowed_plugins();
+
+    if (!in_array($slug, $allowed_plugins)) {
+        wp_die(
+            __('You are not allowed to install this plugin.', 'allowed-plugins-control'),
+            __('Plugin Installation Restricted', 'allowed-plugins-control'),
+            ['response' => 403]
+        );
+    }
+
+    return $install_result;
+}
+add_filter('pre_install_plugin', 'apc_restrict_plugin_installation', 10, 2);
+
+// Hide this plugin from the Plugins page
+function apc_hide_self_plugin($plugins) {
+    // Specify the plugin file to hide (this plugin)
+    $plugin_to_hide = plugin_basename(__FILE__);
+
+    if (isset($plugins[$plugin_to_hide])) {
+        unset($plugins[$plugin_to_hide]);
+    }
+
+    return $plugins;
+}
+add_filter('all_plugins', 'apc_hide_self_plugin');
+
+
+function apc_disable_install_button($links, $plugin) {
+    $allowed_plugins = apc_get_allowed_plugins();
+
+    if (!empty($plugin['slug']) && !in_array($plugin['slug'], $allowed_plugins)) {
+        unset($links['install']);
+    }
+
+    return $links;
+}
+add_filter('plugin_install_action_links', 'apc_disable_install_button', 10, 2);
