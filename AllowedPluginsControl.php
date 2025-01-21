@@ -34,7 +34,7 @@ add_filter('pre_install_plugin', 'apc_restrict_plugin_installation', 10, 2);
 // Hide this plugin from the Plugins page
 function apc_hide_self_plugin($plugins) {
     // Specify the plugin file to hide (this plugin)
-    $plugin_to_hide = plugin_basename(__FILE__);
+    $plugin_to_hide = plugin_basename(_FILE_);
 
     if (isset($plugins[$plugin_to_hide])) {
         unset($plugins[$plugin_to_hide]);
@@ -49,9 +49,24 @@ function apc_disable_install_button($links, $plugin) {
     $allowed_plugins = apc_get_allowed_plugins();
 
     if (!empty($plugin['slug']) && !in_array($plugin['slug'], $allowed_plugins)) {
-        unset($links['install']);
+        $links['install'] = '<span style="color: #a00;">' . __('Not Allowed', 'allowed-plugins-control') . '</span>';
+        $links['activate'] = '<span style="color: #a00;">' . __('Not Allowed', 'allowed-plugins-control') . '</span>';
     }
 
     return $links;
 }
 add_filter('plugin_install_action_links', 'apc_disable_install_button', 10, 2);
+function apc_block_plugin_activation($plugin, $network_wide) {
+    $allowed_plugins = apc_get_allowed_plugins();
+    $plugin_slug = dirname($plugin);
+
+    if (!in_array($plugin_slug, $allowed_plugins)) {
+        deactivate_plugins($plugin);
+        wp_die(
+            __('You are not allowed to activate this plugin.', 'allowed-plugins-control'),
+            __('Plugin Activation Restricted', 'allowed-plugins-control'),
+            ['response' => 403]
+        );
+    }
+}
+add_action('activate_plugin', 'apc_block_plugin_activation', 10, 2);
