@@ -51,7 +51,7 @@ function apc_disable_install_button($links, $plugin) {
 
     if (!empty($plugin['slug']) && !in_array($plugin['slug'], $allowed_plugins)) {
         
-        $links['install'] = '<span style="color: #a00;">' . __('Not Allowed. Please contact DITC for more information', 'allowed-plugins-control') . '</span>';
+        $links['install'] = '<span style="color: #a00;">' . __('Not Available. Please contact DITC for more information', 'allowed-plugins-control') . '</span>';
         unset($links['0']);
         unset($links['1']);
     }
