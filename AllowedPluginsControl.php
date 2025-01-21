@@ -10,7 +10,8 @@ Author: Lungdsuo Mozhui
 function apc_get_allowed_plugins() {
     return [
         'akismet', 
-        'classic-editor', 
+        'classic-editor',
+        'AllowedPluginsControl', 
         
     ];
 }
@@ -29,12 +30,12 @@ function apc_restrict_plugin_installation($install_result, $slug) {
 
     return $install_result;
 }
-add_filter('pre_install_plugin', 'apc_restrict_plugin_installation', 10, 2);
+// add_filter('pre_install_plugin', 'apc_restrict_plugin_installation', 10, 2);
 
 // Hide this plugin from the Plugins page
 function apc_hide_self_plugin($plugins) {
     // Specify the plugin file to hide (this plugin)
-    $plugin_to_hide = plugin_basename(_FILE_);
+    $plugin_to_hide = plugin_basename(__FILE__);
 
     if (isset($plugins[$plugin_to_hide])) {
         unset($plugins[$plugin_to_hide]);
@@ -42,7 +43,7 @@ function apc_hide_self_plugin($plugins) {
 
     return $plugins;
 }
-add_filter('all_plugins', 'apc_hide_self_plugin');
+// add_filter('all_plugins', 'apc_hide_self_plugin');
 
 
 function apc_disable_install_button($links, $plugin) {
