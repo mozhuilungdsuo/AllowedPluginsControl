@@ -9,10 +9,9 @@ Author: Lungdsuo Mozhui
 
 function apc_get_allowed_plugins() {
     return [
+        'AllowedPluginsControl', // Do not remove this plugin from the allowed list. This is the plugin itself.
         'akismet', 
         'classic-editor',
-        'AllowedPluginsControl', 
-        'laravel-dd'
         
     ];
 }
