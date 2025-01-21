@@ -33,7 +33,8 @@ The Allowed Plugins Control plugin allows WordPress administrators to restrict t
        ];
    }
    ```
-3. Save the changes.
+4. The slugs can be found in the URL of the plugin's WordPress.org page. For example, the slug for Akismet is `akismet`. or you can find the plugin slug in the plugin's main file.
+5. Save the changes
 
 ## Code Details
 
