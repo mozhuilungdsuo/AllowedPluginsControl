@@ -43,7 +43,7 @@ function apc_hide_self_plugin($plugins) {
 
     return $plugins;
 }
-// add_filter('all_plugins', 'apc_hide_self_plugin');
+add_filter('all_plugins', 'apc_hide_self_plugin');
 
 
 function apc_disable_install_button($links, $plugin) {
