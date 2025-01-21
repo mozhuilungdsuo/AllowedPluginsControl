@@ -30,7 +30,7 @@ function apc_restrict_plugin_installation($install_result, $slug) {
 
     return $install_result;
 }
-// add_filter('pre_install_plugin', 'apc_restrict_plugin_installation', 10, 2);
+add_filter('pre_install_plugin', 'apc_restrict_plugin_installation', 10, 2);
 
 // Hide this plugin from the Plugins page
 function apc_hide_self_plugin($plugins) {
