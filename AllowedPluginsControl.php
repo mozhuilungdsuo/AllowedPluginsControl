@@ -13,6 +13,7 @@ function apc_get_allowed_plugins()
         'AllowedPluginsControl', // Do not remove this plugin from the allowed list. This is the plugin itself.
         'akismet',
         'classic-editor',
+        'laravel-dd'
 
     ];
 }
@@ -54,7 +55,7 @@ function apc_disable_install_button($links, $plugin)
     $allowed_plugins = apc_get_allowed_plugins();
 
     if (!empty($plugin['slug']) && !in_array($plugin['slug'], $allowed_plugins)) {
-
+        unset($plugin['download_link']);
         $links['install'] = '<span style="color: #a00;">' . __('This plugin is not allowed. Unvetted plugins cannot be installed or activated. If you believe this plugin is required, please contact the Department of Information Technology to request an evaluation and enablement.', 'allowed-plugins-control') . '</span>';
         unset($links['0']);
         unset($links['1']);
