@@ -24,8 +24,8 @@ function apc_restrict_plugin_installation($install_result, $slug)
 
     if (!in_array($slug, $allowed_plugins)) {
         wp_die(
-            __('You are not allowed to install this plugin.Please contact Department of Information Technology for more information.', 'allowed-plugins-control'),
-            __('Plugin Installation Restricted.Please contact Department of Information Technology for more information', 'allowed-plugins-control'),
+            __('This plugin is not allowed. Unvetted plugins cannot be installed or activated. If you believe this plugin is required, please contact the Department of Information Technology to request an evaluation and enablement.', 'allowed-plugins-control'),
+            __('This plugin is not allowed. Unvetted plugins cannot be installed or activated. If you believe this plugin is required, please contact the Department of Information Technology to request an evaluation and enablement.', 'allowed-plugins-control'),
             ['response' => 403]
         );
     }
@@ -55,7 +55,7 @@ function apc_disable_install_button($links, $plugin)
 
     if (!empty($plugin['slug']) && !in_array($plugin['slug'], $allowed_plugins)) {
 
-        $links['install'] = '<span style="color: #a00;">' . __('Not Available. Please contact Department of Information Technology for more information', 'allowed-plugins-control') . '</span>';
+        $links['install'] = '<span style="color: #a00;">' . __('This plugin is not allowed. Unvetted plugins cannot be installed or activated. If you believe this plugin is required, please contact the Department of Information Technology to request an evaluation and enablement.', 'allowed-plugins-control') . '</span>';
         unset($links['0']);
         unset($links['1']);
     }
@@ -72,7 +72,7 @@ function apc_block_plugin_activation($plugin, $network_wide)
     if (!in_array($plugin_slug, $allowed_plugins)) {
         deactivate_plugins($plugin);
         wp_die(
-            __('You are not allowed to activate this plugin. Please contact Department of Information Technology for more information', 'allowed-plugins-control'),
+            __('This plugin is not allowed. Unvetted plugins cannot be installed or activated. If you believe this plugin is required, please contact the Department of Information Technology to request an evaluation and enablement.', 'allowed-plugins-control'),
             __('Plugin Activation Restricted. Please contact Department of Information Technology for more information', 'allowed-plugins-control'),
             ['response' => 403]
         );
