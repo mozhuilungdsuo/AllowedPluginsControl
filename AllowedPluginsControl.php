@@ -4,6 +4,7 @@ Plugin Name: Allowed Plugins Control
 Description: Restricts plugin installation to a predefined list and hides this plugin from the Plugins page.
 Version: 1.0
 Author: Lungdsuo Mozhui
+Text Domain: allowed-plugins-control
 */
 
 
